@@ -1,0 +1,90 @@
+7/26/18
+I have moved the streaming to a dedicated laptop. The laptop should do only 2 things, keep the stream alive and create new daily playlists. I need to rsync from my iMac so my iMac can keep downloading new videos and compressing them, then push over to the ooftvstream server
+
+
+
+=============
+5/31/18
+these scripts only work if you're login in, which means obs won't start automatically after a restart. It appears now that it won't even launch at boot. can i make a launchdaemon/agent that makes sure its running? (this would probably be better on a dedicated server, since it will be frustrating trying to force close it)
+
+=========================
+05/30/18
+
+Bugs:
+
+all file id's are being stored in downloaded.txt in the scripts folder. It might be better to save this in their respective folders so each playlist has its own downloaded.txt
+
+the youtube id's are being stripped from the filename, probably preferable to keep the id
+
+the add to stream folder is not being compressed
+
+
+========================
+keep everything in a folder, scripts included. 
+
+scripts:
+
+oofAutoYouTubeDL.sh
+specifies which items to watch for and download. this script could be run nightly
+items will be sorted into folders based off of playlist, so there would be a music video folder, a promo folder, series folder, live folder, etc. these would download into fixed folders, then they will be compressed and moved into a broadcast folder. That way things can quickly be removed or sorted differently without forcing a re-download.
+
+oofPlaylistCreator.sh
+takes downloaded items and shuffles them. this script could be run nightly so every day the playlist is fresh. this should also mix in ooftv promos for example every 10 items or so. then OBS would play the playlist in order, so the shuffling happens here. That way we don't see 2 promos in a row for example. 
+
+oofBroadcastCompressor.sh
+This watches folder and compresses videos to broadcast spec, then moves the compressed version to the broadcast folder.
+
+other ideas:
+is there a way to skip items and never download them by putting in place holders? Is that necessary? 
+
+create specialized playlists, and make a script that knows when to play them (xmas, halloween, videofests, birthday)
+
+================
+5/17/18
+
+As of today, the script is kind of working. the oofauto script calls the playlist maker script. It will check the playlists for new items and download them. It won't compress them. 
+Items that have been compressed will be added to a daily playlist, and will also create a shuffled version of that playlist.
+
+what's not working:
+
+the script checks every item in the playlist to see if it needs to download it. would be great if it could check a local text file first and completely skip items it knows it has already downloaded.
+
+the compression works well, but it processes every file regardless if a compressed version already has been created, so I turned it off. I need to figure out a way to compress only new items.
+
+the playlist maker returns some file not found errors, but still seems to work. need to investigate that.
+
+the playlist maker is its own script, but is called but the main script. would be great to separate each part into different scripts, so that the main script just calls the other scripts. I should probably figure out how to make those all link relative to each other.
+
+=================
+5/21/18
+
+The command I was using for ffmpeg, which stored the first pass in a temp file, was causing problems because I had troubles no re-running the compression eveytime I ran the script since the output no longer existed. So now I'm going to try to keep the temp file by writing the first pass to a text file, and seeing if it's small enough to keep. (tried it, creates a large text file - could probably go with this but still not ideal because it'll double space required so not scaleable)
+
+=======
+
+I would like to break up the scripts so each script just does one task, and one script runs them all (with logging and error codes). 
+
+downloader would just check youtube and grab new stuss (need to optimize so it creates a text file of stuff to skip)
+
+compressor just compresses and moves the compressed files to a subfolder
+
+playlist maker reads the compressed folders and makes a shuffled up playlist, with a way to insert promos and heavy rotation, etc
+
+master would be a very simple script that just runs all of them
+
+paths would be a text file all scripts could read that sets up where to put things. this way the scripts shouldn't need work. (wondering if I should re-write all of this in python)
+
+obs starter launches obs on startup and every night to refresh the playlist.
+
+============
+
+at some point, I was researching a command line way of streaming playlists using gstreamer and liquidsoap using this github project: https://github.com/fyroc/RTMP-Playlist
+
+================
+
+I want to rewrite everythihng in python.
+
+For now, this is mostly automatic, except the comrpession part. So new videos will be downloaded, but I'll have to manualyl start the compression process.
+
+cron runs oofmain, which runs the scripts. cron also runs obsstart which refreshes obs. I'd like to keep these 2 separate, because if oofmain fails I think it's still a good idea to refresh the script daily
+

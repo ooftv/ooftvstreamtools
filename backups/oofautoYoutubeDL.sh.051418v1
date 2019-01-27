@@ -1,0 +1,109 @@
+#!/bin/bash
+
+# this is a simple script that downloads entire specified playlists
+# this should be run with cron or on a schedule
+# this should only download items not previously downloaded, so be careful to leave already downloaded
+# videos in place or they will be re-downloaded the next time the script is run
+
+# this will download any new playlist additions into a source video folder, then log what it did every time it runs. 
+# It also keeps track of how long it took.
+
+# to run this script with cron, we have to remind it where it can find youtube-dl and ffmpeg
+# this is important because even though the command runs from a shell, and the script runs fine when manually started,
+# it still partially fails in cron because youtube-dl can't find ffmpeg. The other part to this is setting the PATH in cron.
+# I haven't tested whether it is necessary to have this both here and in cron
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+export DISPLAY=:0.0
+
+# - still need to clean this up and take notes on how I got there. https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command
+# still need to verify this runs right for all playlists
+# still need to automate this
+# would like to simplify script by putting the paths and playlists into variables
+
+# log files
+# consider combining these into one log file
+L='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/LiveMusicplaylistLog.txt'
+S='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/AddToStreamplaylistLog.txt'
+M='/users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/MusicVideoplaylistLog.txt'
+
+# Download Paths
+#MUSIC VIDEOS
+MP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/musicvideoplaylist-PLF06E26B33B6A2F33/'
+LP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/oofliveplaylist-PLA026E00FEC044A76/'
+SP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/oofaddtostreamplaylist-PLmvDDOT4vxZd4th9yXtHKXc6HSA_93nlV/'
+
+#Playlist Links
+ML='https://www.youtube.com/playlist?list=PLF06E26B33B6A2F33'
+LL='https://www.youtube.com/playlist?list=PLA026E00FEC044A76'
+SL='https://www.youtube.com/playlist?list=PLmvDDOT4vxZd4th9yXtHKXc6HSA_93nlV'
+
+#YouTube-dl Options
+# working example:
+# youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' https://www.youtube.com/watch?v=Z-s1MSbpKcc
+# consider creating an index for videos to skip: https://askubuntu.com/questions/673442/downloading-youtube-playlist-with-youtube-dl-skipping-existing-files
+# use -i to ignore errors (otherwise it stops on errors)
+Y='%(title)s.%(ext)s -i -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4''
+
+#ffmpeg function to automatically transcode and place in a transcoded folder
+# to use this: compress $MP or compress $LP
+# note: this is for testing, need to set up actual compression paramaters still. 
+# note this isn't working - thinks output name is 
+# /compressed//Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/musicvideoplaylist-PLF06E26B33B6A2F33/pAS dOO - 6icksenses-broadcasttest.mp4: No such file or directory
+# look at this solution: for f in *.mp4; do ffmpeg -i "$f" <additional options> "encoded/${f%.*}.mp4"; done
+# from: https://video.stackexchange.com/questions/19860/batch-conversion-into-a-new-folder-with-ffmpeg
+#https://trac.ffmpeg.org/wiki/Encode/H.264
+# https://trac.ffmpeg.org/wiki/Scaling
+# this still doesn't work, the second instance of ffmpeg returns a file not found error
+compress (){
+     mkdir -p $1compressed
+     cd $1
+     for f in *.mp4; do /usr/local/bin/ffmpeg -y -i "$f" -vf scale=1280:720 -c:v libx264 -b:v 1500k -pass 1 -c:a aac -b:a 128k -f mp4 /dev/null && /usr/local/bin/ffmpeg -i "$f" -vf scale=1280:720 -c:v libx264 -b:v 1500k -pass 2 -c:a aac -b:a 128k "compressed/${f%.*}-broadcast.mp4"; done
+}
+
+#This function doesn't work, because it passes the absolute path into $name, leaving no easy way to insert the subfolder into the path
+#compress (){
+#     mkdir -p $1compressed
+#     for i in $1*.mp4;
+#       do name=`echo $i | cut -d'.' -f1`;
+#       echo $name;
+#       ffmpeg -i "$i" "./compressed/${name}-broadcasttest.mp4";
+#done 
+#}
+
+#Log separator
+B='================================================================'
+
+# ++++++++++++++++++++++++
+# Ok let's start the script commands
+# ++++++++++++++++++++++++
+
+# check the playlists and download new stuff
+
+# ooftv music videos
+date >> $M
+echo youtube-dl results
+{ time /usr/local/bin/youtube-dl -o $MP$Y $ML ; } 2>> $M
+# separate log entries
+echo $B >> $M
+
+# ooftv live music archives
+date >> $L
+{ time /usr/local/bin/youtube-dl -o $LP$Y $LL ; } 2>> $L
+echo $B >> $L
+
+# Playlist: Add To Stream
+# ooftv stream playlist (this is an unlisted playlist set up for this script)
+date >> $S
+{ time /usr/local/bin/youtube-dl -o $SP$Y $SL ; } 2>> $S
+echo $B >> $S
+
+# compress the vidos for streaming and move them into a subfolder called compressed
+
+# compress the new music videos
+# compress $MP
+
+# compress the ooftv live music playlist
+# compress $LP
+
+#compress the add to stream playlist
+compress $SP
