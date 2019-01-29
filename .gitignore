@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+*.mbtree
 
 # OS generated files #
 ######################
@@ -50,3 +51,5 @@ Thumbs.db
 *.webm
 *.avi
 *.part
+*.ytdl
+*.m4a
