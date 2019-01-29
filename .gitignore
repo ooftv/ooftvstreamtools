@@ -53,3 +53,7 @@ Thumbs.db
 *.part
 *.ytdl
 *.m4a
+
+# folders #
+######################
+sourcevideos/
