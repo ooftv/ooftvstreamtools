@@ -5,7 +5,7 @@
 # this should only download items not previously downloaded, so be careful to leave already downloaded
 # videos in place or they will be re-downloaded the next time the script is run
 
-# this will download any new playlist additions into a source video folder, then log what it did every time it runs. 
+# this will download any new playlist additions into a source video folder, then log what it did every time it runs.
 # It also keeps track of how long it took.
 
 # to run this script with cron, we have to remind it where it can find youtube-dl and ffmpeg
@@ -14,20 +14,27 @@
 # I haven't tested whether it is necessary to have this both here and in cron
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 export DISPLAY=:0.0
+ffmpeg=/usr/local/bin/ffmpeg
+echo "current folder is"
+pwd
 
 
 # log files
 # consider combining these into one log file
-L='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/LiveMusicplaylistLog.txt'
-S='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/AddToStreamplaylistLog.txt'
-M='/users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/MusicVideoplaylistLog.txt'
+mkdir -p ../logs
+L='../logs/LiveMusicplaylistLog.txt'
+S='../logs/AddToStreamplaylistLog.txt'
+M='../logs/MusicVideoplaylistLog.txt'
 
 # Download Paths
 #MUSIC VIDEOS
-MP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/musicvideoplaylist-PLF06E26B33B6A2F33/'
-LP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/oofliveplaylist-PLA026E00FEC044A76/'
-SP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/oofaddtostreamplaylist-PLmvDDOT4vxZd4th9yXtHKXc6HSA_93nlV/'
-OP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/ooforiginals/'
+MP='../sourcevideos/MusicVideos/'
+LP='../sourcevideos/LiveVideos/'
+SP='../sourcevideos/AddToStream/'
+OP='../sourcevideos/OOFOriginals/'
+
+# Create the folders if they don't exist
+mkdir -p $MP $LP $SP $OP
 
 #Playlist Links
 # all music videos
@@ -49,9 +56,9 @@ TFC='https://www.youtube.com/playlist?list=PLmvDDOT4vxZcd-oSPp2o9JNZcJ4gSinoI'
 # working example:
 # youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' https://www.youtube.com/watch?v=Z-s1MSbpKcc
 # use -i to ignore errors (otherwise it stops on errors)
-Y='%(title)s-%(id).%(ext)s --download-archive downloaded.txt --no-post-overwrites -ciw --download-archive downloaded.txt -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4''
+Y='%(title)s-%(id)s.%(ext)s --download-archive ../logs/downloaded.txt --no-post-overwrites -ciw --download-archive ../logs/downloaded.txt -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4''
 
-Log separator
+#Log separator
 B='================================================================'
 
 # ++++++++++++++++++++++++
@@ -79,4 +86,4 @@ date >> $S
 echo $B >> $S
 
 # OOF Originals
-/usr/local/bin/youtube-dl -o $OP$Y $AM $SLC $TFC 
+/usr/local/bin/youtube-dl -o $OP$Y $AM $SLC $TFC
