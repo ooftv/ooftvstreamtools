@@ -14,4 +14,5 @@ echo "Stream Launched at $now" >> /home/osmc/ooftv/logs/oofstream.log
 kodi-send --action=PlayMedia"(/home/osmc/ooftv/playlists/today.m3u)"
 
 #This command will enter fullscreen if not in fullscreen, or exit fullscreen if in fullscreen
+#need to figure out how to tell what state it is in so don't accidentally exit fullscreen
 #kodi-send --action=FullScreen
