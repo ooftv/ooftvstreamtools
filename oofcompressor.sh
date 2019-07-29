@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # this is a simple script that compresses folders that are auto-downloaded to,
-# then moves the compressed versions into a compress folder. 
+# then moves the compressed versions into a compress folder.
 # It should only compress new items
 # it does this by comparing the download folder to the compress folder and compresses any missing items
 # this gets called by the main script
@@ -15,15 +15,15 @@ export DISPLAY=:0.0
 
 # log files
 # consider combining these into one log file
-L='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/LiveMusicplaylistLog.txt'
-S='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/AddToStreamplaylistLog.txt'
-M='/users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/MusicVideoplaylistLog.txt'
+L='/Users/lorenrisker/Movies/ooftv/broadcast/logs/LiveMusicplaylistLog.txt'
+S='/Users/lorenrisker/Movies/ooftv/broadcast/logs/AddToStreamplaylistLog.txt'
+M='/users/lorenrisker/Movies/ooftv/broadcast/logs/MusicVideoplaylistLog.txt'
 
 # Download Paths
 #MUSIC VIDEOS
-MP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/musicvideoplaylist-PLF06E26B33B6A2F33'
-LP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/oofliveplaylist-PLA026E00FEC044A76'
-SP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/oofaddtostreamplaylist-PLmvDDOT4vxZd4th9yXtHKXc6HSA_93nlV'
+MP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/MusicVideos'
+LP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/LiveVideos'
+SP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/AddToStream'
 OP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/ooforiginals'
 
 #call this function with the path you want to use it on. For example:
@@ -31,7 +31,7 @@ OP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/ooforiginals'
 # compress $p
 
 compress() {
-   cd $1 #not sure if right variable, but this changes to the folder grabbed from when I called the function. 
+   cd $1 #not sure if right variable, but this changes to the folder grabbed from when I called the function.
    #pwd #debugging
    mkdir -p $1/compressed
    #ls #debugging
@@ -42,7 +42,7 @@ compress() {
        echo basename= "$name" # for debugging
        extension="${name##*.}." #find the extension
        name="${name%.*}" #show only the filename without the extension
-       echo checking: "$name"   
+       echo checking: "$name"
 if [[ ! -e "$1/compressed/"$name"-broadcast.mp4" ]]; then
        echo "$name" needs to be compressed
        echo compressing "$name" ...
@@ -58,7 +58,7 @@ B='================================================================'
 # Ok let's start the script commands
 # ++++++++++++++++++++++++
 
-#compress $MP
-#compress $LP
+compress $MP
+compress $LP
 compress $SP
 compress $OP
