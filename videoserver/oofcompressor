@@ -12,16 +12,20 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 export DISPLAY=:0.0
 
+if [[ $# -eq 0 ]] ; then
+    echo 'Please run this command with a folder'
+    echo "example: oofcompressor /Users/admin/videos"
+    exit 0
+fi
+
 
 # log files
-# consider combining these into one log file
 log='/Users/lorenrisker/Movies/ooftv/broadcast/logs/oofcompressor.log'
 
 
-# Download Paths
-#MUSIC VIDEOS
-MP=$1
-
+echo "Compressing all videos from here:"
+echo $1
+echo Compressed videos will be in $1/compressed
 
 #call this function with the path you want to use it on. For example:
 # if your path is a youtube downloader folder assigned to a variable called $p :
@@ -55,4 +59,4 @@ B='================================================================'
 # Ok let's start the script commands
 # ++++++++++++++++++++++++
 
-compress $MP
+#compress $MP

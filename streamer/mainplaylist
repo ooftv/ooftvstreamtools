@@ -1,4 +1,4 @@
-i#!/bin/bash
+#!/bin/bash
 
 now=$(date +"%Y %b %d %H:%M:%S")
 echo "Stream Launched at $now" >> /home/osmc/ooftv/logs/oofstream.log
