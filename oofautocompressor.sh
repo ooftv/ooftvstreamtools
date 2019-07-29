@@ -15,13 +15,16 @@ export DISPLAY=:0.0
 
 # log files
 # consider combining these into one log file
-log='/Users/lorenrisker/Movies/ooftv/broadcast/logs/oofcompressor.log'
-
+L='/Users/lorenrisker/Movies/ooftv/broadcast/logs/LiveMusicplaylistLog.txt'
+S='/Users/lorenrisker/Movies/ooftv/broadcast/logs/AddToStreamplaylistLog.txt'
+M='/users/lorenrisker/Movies/ooftv/broadcast/logs/MusicVideoplaylistLog.txt'
 
 # Download Paths
 #MUSIC VIDEOS
-MP=$1
-
+MP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/MusicVideos'
+LP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/LiveVideos'
+SP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/AddToStream'
+OP='/Users/lorenrisker/Movies/ooftv/broadcast/sourcevideos/ooforiginals'
 
 #call this function with the path you want to use it on. For example:
 # if your path is a youtube downloader folder assigned to a variable called $p :
@@ -56,3 +59,6 @@ B='================================================================'
 # ++++++++++++++++++++++++
 
 compress $MP
+compress $LP
+compress $SP
+compress $OP
