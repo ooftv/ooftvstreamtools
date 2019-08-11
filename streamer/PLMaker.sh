@@ -52,6 +52,10 @@ echo "Creating playlists..."
 # the -d prints the entire path instead of just the contents which is needed for this to work as a playlist
 # ls -d "$MPC"/*.mp4 >> $listPath/$listName # don't include music video playlist as its not vetted for rights
 
+
+# perhaps a better method would be:
+# ls -dl $PWD/*
+# which adds the path to the filename in one step
 echo "writing folder contents to " $listPath/$listName >> $log
 ls -d "$musicvideos"/*.mp4 >> $listPath/$listName
 ls -d "$livevideos"/*.mp4 >> $listPath/$listName

@@ -36,13 +36,13 @@ compress() {
    cd $1 #not sure if right variable, but this changes to the folder grabbed from when I called the function.
    #pwd #debugging
    pwd
-   mkdir -p "$1"/compressed
+   mkdir -p compressed/
    #ls #debugging
-   for f in $1/*; #finds all files in the folder that have a fileextension starting with m (mp4, m4v, mov)
+   for f in $1/*.mov $1/*.mp4; #finds all files in the folder that have a fileextension starting with m (mp4, m4v, mov)
    do
-       echo working on $f # for debugging
+       echo working on "$f" # for debugging
        echo "listing contents of $f"
-      ls $f # for debugging
+       ls $1 # for debugging
        name=$(basename "$f") #strip the path
        echo basename= "$name" # for debugging
        extension="${name##*.}." #find the extension
@@ -51,7 +51,7 @@ compress() {
 if [[ ! -e "$1/compressed/"$name"-broadcast.mp4" ]]; then
        echo "$name" needs to be compressed
        echo compressing "$name" ...
-       /usr/local/bin/ffmpeg -y -i "$f" -vf scale=1280:720 -c:v libx264 -b:v 1500k -pass 1 -c:a aac -b:a 128k -f mp4 /dev/null && /usr/local/bin/ffmpeg -i "$f" -vf scale=1280:720 -c:v libx264 -b:v 1500k -pass 2 -c:a aac -b:a 128k -f mp4 "$1/compressed/${f%.*}-broadcast.mp4"
+       /usr/local/bin/ffmpeg -y -i "$f" -vf scale=1280:720 -c:v libx264 -b:v 1500k -pass 1 -c:a aac -b:a 128k -f mp4 /dev/null && /usr/local/bin/ffmpeg -i "$f" -vf scale=1280:720 -c:v libx264 -b:v 1500k -pass 2 -c:a aac -b:a 128k -f mp4 "compressed/${f%.*}-broadcast.mp4"
    fi
    done
 }
