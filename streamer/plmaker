@@ -21,19 +21,19 @@ mkdir -p $basePath
 
 # Paths to compressed videos:
 # Music Videos
-musicvideos=$basePath'/broadcast/musicvideos'
+musicvideos=$basePath'/musicvideos'
 # Live Videos
-livevideos=$basePath'/broadcast/live'
+livevideos=$basePath'/live'
 # Other videos
-othervideos=$basePath'/broadcast/othervideos'
+othervideos=$basePath'/othervideos'
 # OOF Promos
-promos=$basePath'/broadcast/promos'
+promos=$basePath'/promos'
 # OOF Series
-series=$basePath'/broadcast/series'
+series=$basePath'/series'
 
 # Playlist Path
-listPath='/tmp/ooftv'
-#listPath=$basePath'/broadcast/playlists'
+#listPath='/tmp/ooftv'
+listPath=$basePath'/playlists'
 
 echo "Let's check our paths, Do they look ok?" >> $log
 echo $musicvideos >> $log
@@ -71,4 +71,6 @@ ls -d "$series"/*.mp4 >> $listPath/$listName
 # osmc may use shuf instead of gshuf
 # this uses tee to send the output to two files, one named for the date (for records) and one simply overwrites the playlist called today.m3u
 # obs (or whatever streamer you want) will just always point to the file called today.m3u which will be refreshed everytime the script is run
-/usr/bin/shuf $listPath/$listName | tee $listPath/$shufList $listPath/today.m3u > /dev/null
+/usr/bin/shuf $listPath/$listName | awk -v n=5 '1; NR % n == 0 {print "Hello Loren"}' | tee $listPath/$shufList.test $listPath/test.m3u > /dev/null
+echo "whoami = "
+whoami
