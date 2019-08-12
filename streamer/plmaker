@@ -66,11 +66,17 @@ ls -d "$othervideos"/*.mp4 >> $listPath/$listName
 ls -d "$promos"/*.mp4 >> $listPath/$listName
 ls -d "$series"/*.mp4 >> $listPath/$listName
 
+# heavy rotation
+# use this seciton to specify videos that should be added after the shuffle
+# for example play a oof promo every 5th video
+n=5 #put video in every n videos
+promo="/tmp/test.mp4"
+echo $promo
+
 # Shuffle the playlist
 # this relies on gshuf which is not installed natively on a mac. can be installed with brew install coreutils
 # osmc may use shuf instead of gshuf
 # this uses tee to send the output to two files, one named for the date (for records) and one simply overwrites the playlist called today.m3u
 # obs (or whatever streamer you want) will just always point to the file called today.m3u which will be refreshed everytime the script is run
-/usr/bin/shuf $listPath/$listName | awk -v n=5 '1; NR % n == 0 {print "Hello Loren"}' | tee $listPath/$shufList.test $listPath/test.m3u > /dev/null
-echo "whoami = "
-whoami
+/usr/bin/shuf $listPath/$listName | awk -v n=$n '1; NR % n == 0 { print "'$promo'" }' | tee $listPath/$shufList.test $listPath/test.m3u > /dev/null
+#cat $listPath/test.m3u
