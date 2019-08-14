@@ -89,5 +89,5 @@ NR == FNR {promos[p++] = $0; next}
 ++c == r {
 print promos[int(rand() * p)]; 
 r = int(rand()*5+2); c = 0
-}' <(find /home/osmc/ooftv/promos -type f -name 'promo*.mp4') - 
+}' <(find /home/osmc/ooftv/promos -type f \( -iname \*.mp4 -o -iname \*.mov \)) - 
 
