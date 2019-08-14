@@ -6,14 +6,14 @@ export DISPLAY=:0.0
 # 1) Finds Videos
 # 2) Puts them into a playlist
 # 3) Shuffles them up
-# 4) (still in progress) Makes sure certian videos play every so many videos # for example it will play something from the promo folder every 10 videos
+# 4) Makes sure certain videos play every so many videos # for example it will play something from the promo folder every 10 videos
 
 d=$(date +%Y-%m-%d) # use this to give playlists a unique name
 log=/tmp/PLMaker.log
-echo "================PLMaker ran" $d "======================">> /tmp/PLMaker.log
+echo "================PLMaker ran" $d "======================">> $log
 #set base url, otherwise script will fail. after changing the baseurl disable to log 
 
-echo "Did you remember to set a basePath at the top of the script?" >> /tmp/PLMaker.log
+echo "Did you remember to set a basePath at the top of the script?" >> $log
 basePath='/home/osmc/ooftv'
 echo "baseURL = " $baseURL
 
@@ -89,5 +89,7 @@ NR == FNR {promos[p++] = $0; next}
 ++c == r {
 print promos[int(rand() * p)]; 
 r = int(rand()*5+2); c = 0
-}' <(find /home/osmc/ooftv/promos -type f \( -iname \*.mp4 -o -iname \*.mov \)) - 
+}' <(find /home/osmc/ooftv/promos -type f \( -iname \*.mp4 -o -iname \*.mov \)) - | tee $listPath/$shuflist $listPath/today.m3u > /dev/null
+
+cat $listPath/today.m3u
 
