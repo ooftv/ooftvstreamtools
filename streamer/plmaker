@@ -63,7 +63,7 @@ echo "writing folder contents to " $listPath/$listName >> $log
 ls -d "$musicvideos"/*.mp4 >> $listPath/$listName
 ls -d "$livevideos"/*.mp4 >> $listPath/$listName
 ls -d "$othervideos"/*.mp4 >> $listPath/$listName
-ls -d "$promos"/*.mp4 >> $listPath/$listName
+# ls -d "$promos"/*.mp4 >> $listPath/$listName
 ls -d "$series"/*.mp4 >> $listPath/$listName
 
 # heavy rotation
@@ -83,7 +83,7 @@ echo $promo
 #at $listPath/test.m3u
 
 #https://stackoverflow.com/questions/57466814/inserting-random-strings-with-awk-array-or-for-loop/57469986#57469986
-/usr/bin/shuf $listPath/$listName | awk 'BEGIN {srand(); r = 6; p = 0} 
+/usr/bin/shuf $listPath/$listName | awk 'BEGIN {srand(); r = 5; p = 1} 
 NR == FNR {promos[p++] = $0; next} 
 {print} 
 ++c == r {
