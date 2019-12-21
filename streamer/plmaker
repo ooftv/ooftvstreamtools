@@ -59,6 +59,8 @@ echo "Creating playlists..."
 # perhaps a better method would be:
 # ls -dl $PWD/*
 # which adds the path to the filename in one step
+# feature to add. Loop each statement, maybe like this. if n <= r, write the folder contents again.
+# r would equal rank, so a 1 would only get written into the shuffle once, and a 10 would mean every song would be entered the suffle 10 times
 echo "writing folder contents to " $listPath/$listName >> $log
 ls -d "$musicvideos"/*.mp4 >> $listPath/$listName
 ls -d "$livevideos"/*.mp4 >> $listPath/$listName
@@ -69,6 +71,7 @@ ls -d "$series"/*.mp4 >> $listPath/$listName
 # heavy rotation
 # use this seciton to specify videos that should be added after the shuffle
 # for example play a oof promo every 5th video
+# this forces it to be played every few videos, but won't play back to back.
 n=5 #put video in every n videos
 promo=/home/osmc/ooftv/promos
 echo $promo
