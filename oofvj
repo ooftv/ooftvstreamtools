@@ -1,0 +1,28 @@
+#!/bin/sh
+
+#Set PATH
+export PATH=/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+echo "using ffmpeg:"
+/usr/bin/which ffmpeg
+echo "using youtube-dl:"
+/usr/bin/which youtube-dl
+
+# set download path:
+dpath=/Users/ooftv/Movies/ooftv/downloaded
+
+# make sure the download path exists
+mkdir -p $dpath
+
+# change directory to the download path. This could also be specified in the youtube-dl command but I did it this way.
+cd $dpath
+
+/usr/local/bin/youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' $1
+echo "output above this line is from youtube-dl. If it can't find youtube-dl, you have to edit the script to change your youtube-dl path"
+echo "======================================================="
+echo "THIS SCRIPT WAS WRITTEN FOR LIVE VJING BY PULLING VIDEOS THAT YOU ALREADY UPLOADED TO YOUTUBE (OR OTHER SITES)"
+echo "this script downloads a video and moves it here for vj:"
+echo $dpath
+echo "this script needs a video link in order to run."
+echo "example: ytvj https://www.youtube.com/watch?v=NT43A9o65Nw"
+echo "attempting to download: $1"
