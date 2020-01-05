@@ -14,6 +14,10 @@ dpath=/Users/ooftv/Movies/ooftv/downloaded
 # make sure the download path exists
 mkdir -p $dpath
 
+# this script was writting for the mac, and assumes a user ooftv
+echo "Videos will be downloaded to:"
+echo $dpath
+
 # change directory to the download path. This could also be specified in the youtube-dl command but I did it this way.
 cd $dpath
 
