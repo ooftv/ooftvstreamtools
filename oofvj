@@ -8,6 +8,9 @@ echo "using ffmpeg:"
 echo "using youtube-dl:"
 /usr/bin/which youtube-dl
 
+# attempting to update youtube-dl
+youtube-dl --update
+
 # set download path:
 dpath=/Users/ooftv/Movies/ooftv/downloaded
 
