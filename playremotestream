@@ -1,0 +1,15 @@
+#!/bin/bash
+echo this script requires curl and mplayer and expects it to be in your path
+
+# this fetchs a url, and returns the status code only
+status=$(curl -s --head -w %{http_code} http://www.ooftv.net/live/oof.m3u8 -o /dev/null)
+echo $status
+
+if [ "$status" -eq "200" ]; then
+   echo "stream is working";
+else
+  echo "stream is not working:"
+  echo $status
+fi
+
+mplayer -fs http://www.ooftv.net/live/oof.m3u8 -screen 1
