@@ -1,0 +1,26 @@
+#/bin/bash
+
+# run the script for a limited time, so we don't record for days by accident
+# set the time here. 3s = 3 seconds. 90m = 90 minutes = 36h = 36 hours.
+timeout=3h
+
+echo this script requires timeout
+
+
+#location to record the stream
+path="~/Movies/ooftv/oof_RecordedStreams/"
+# if the folder don't exist, make them
+mkdir -p ~/Movies/ooftv/oof_RecordedStreams/
+
+#=============
+# this section should run if options are included, such as a stream link
+# example: recordstream http://www.ooftv.net/stream/live
+#=============
+
+# if no recordstream is invoked without options, it'll do this:
+stream=http://www.ooftv.net/live/oof.m3u8
+echo "Don't forget to keep youtube-dl up to date! You may want to create a"
+echo "launchdaemon to make sure you update it regularly."
+date=$(date +"%Y-%m-%d-%H%M%S")
+echo  "$path$date-%(title)s.%(ext)s"
+gtimeout $timeout youtube-dl $stream -o "$path$date-%(title)s.%(ext)s"
