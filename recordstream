@@ -1,5 +1,7 @@
 #/bin/bash
 
+exec &> /tmp/recordstream.log
+
 # set the path
 export PATH="$PATH:/usr/local/bin:/"
 
@@ -11,9 +13,10 @@ echo this script requires timeout
 
 
 #location to record the stream
-path="~/Movies/ooftv/oof_RecordedStreams/"
+path="~/Movies/OOFTV/oof_RecordedStreams/"
 # if the folder don't exist, make them
-mkdir -p ~/Movies/OOFTV/oof_RecordedStreams/
+mkdir -p $path
+echo recorded stream and log output here: $path
 
 #=============
 # this section should run if options are included, such as a stream link
@@ -27,9 +30,11 @@ echo "launchdaemon to make sure you update it regularly."
 date=$(date +"%Y-%m-%d-%H%M%S")
 
 # create a place for the output
-log=$path$date.log
+
+log=$date.log
 echo $log
-touch $log
+cd $path
+#touch $log > /tmp/recordsteam.log
 
 echo  "$path$date-%(title)s.%(ext)s"
-#/usr/local/bin/gtimeout $timeout /usr/local/bin/youtube-dl $stream -o "$path$date-%(title)s.%(ext)s" &>$log
+/usr/local/bin/gtimeout $timeout /usr/local/bin/youtube-dl $stream -o "$path$date-%(title)s.%(ext)s"
