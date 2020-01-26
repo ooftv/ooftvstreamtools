@@ -1,6 +1,12 @@
 #/bin/bash
+( #parentheses around everythiing runs the script in a subshell https://www.reddit.com/r/shortcuts/comments/9u57kr/run_command_over_ssh_and_dont_wait_for_output/
 
-exec &> /tmp/recordstream.log
+#kill ffmpeg in case you recently activated it and forgot - don't want to capture the same stream twice (should be more graceful way to do this)
+killall "ffmpeg"
+date=$(date +"%Y-%m-%d-%H%M%S")
+
+# enable the next line to write output to a log file instead of the terminal
+exec &> /tmp/recordstream-$date.log
 
 # set the path
 export PATH="$PATH:/usr/local/bin:/"
@@ -27,14 +33,16 @@ echo recorded stream and log output here: $path
 stream=http://www.ooftv.net/live/oof.m3u8
 echo "Don't forget to keep youtube-dl up to date! You may want to create a"
 echo "launchdaemon to make sure you update it regularly."
-date=$(date +"%Y-%m-%d-%H%M%S")
 
 # create a place for the output
 
 log=$date.log
 echo $log
 cd $path
-#touch $log > /tmp/recordsteam.log
 
 echo  "$path$date-%(title)s.%(ext)s"
-/usr/local/bin/gtimeout $timeout /usr/local/bin/youtube-dl $stream -o "$path$date-%(title)s.%(ext)s"
+# /usr/local/bin/gtimeout $timeout /usr/local/bin/youtube-dl $stream -o "$path$date-%(title)s.%(ext)s" # youtube-dl way - needs improvement because frame rates and bit rates are unreliable
+# /usr/local/bin/gtimeout $timeout /usr/local/bin/ffmpeg -i http://www.ooftv.net/live/oof.m3u8 -c copy -bsf:a aac_adtstoasc "$path$date-ooftv_live.mp4"
+/usr/local/bin/gtimeout --foreground $timeout /usr/local/bin/ffmpeg -i http://www.ooftv.net/live/oof.m3u8 -c copy -bsf:a aac_adtstoasc /Users/lorenrisker/Movies/OOFTV/oof_RecordedStreams/$date-oof-live.mp4
+) & # the & runs the sub-shell in the background
+disown %1
