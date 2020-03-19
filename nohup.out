@@ -1,0 +1,41 @@
+[00007fd39cd14f10] main libvlc: Running vlc with the default interface. Use 'cvlc' to use vlc without interface.
+[00007fd39f57a850] videotoolbox decoder: Using Video Toolbox to decode 'h264'
+[00007fd39f57a850] videotoolbox decoder: vt cvpx chroma: 420v
+2020-03-18 22:44:04.670 VLC[777:47958] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:04.670 VLC[777:47958] Can't find app with identifier com.spotify.client
+2020-03-18 22:44:04.692 VLC[777:47958] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:04.692 VLC[777:47958] Can't find app with identifier com.spotify.client
+2020-03-18 22:44:04.697 VLC[777:47958] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:04.697 VLC[777:47958] Can't find app with identifier com.spotify.client
+2020-03-18 22:44:04.803 VLC[777:47958] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:04.803 VLC[777:47958] Can't find app with identifier com.spotify.client
+[00007fd39f57a850] videotoolbox decoder: Raising max DPB to 3
+[00007fc39a607760] main libvlc: Running vlc with the default interface. Use 'cvlc' to use vlc without interface.
+[00007fc39cf828a0] videotoolbox decoder: Using Video Toolbox to decode 'h264'
+[00007fc39cf828a0] videotoolbox decoder: vt cvpx chroma: 420v
+2020-03-18 22:44:29.908 VLC[778:48401] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:29.908 VLC[778:48401] Can't find app with identifier com.spotify.client
+2020-03-18 22:44:29.928 VLC[778:48401] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:29.929 VLC[778:48401] Can't find app with identifier com.spotify.client
+2020-03-18 22:44:29.933 VLC[778:48401] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:29.933 VLC[778:48401] Can't find app with identifier com.spotify.client
+2020-03-18 22:44:30.035 VLC[778:48401] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:44:30.035 VLC[778:48401] Can't find app with identifier com.spotify.client
+[00007fc39cf828a0] videotoolbox decoder: Raising max DPB to 3
+[00007f90e4500750] main libvlc: Running vlc with the default interface. Use 'cvlc' to use vlc without interface.
+[00007f90e7bc74a0] videotoolbox decoder: Using Video Toolbox to decode 'h264'
+[00007f90e7bc74a0] videotoolbox decoder: vt cvpx chroma: 420v
+2020-03-18 22:46:12.540 VLC[779:48834] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:46:12.541 VLC[779:48834] Can't find app with identifier com.spotify.client
+2020-03-18 22:46:23.705 VLC[779:48834] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:46:23.705 VLC[779:48834] Can't find app with identifier com.spotify.client
+2020-03-18 22:46:23.714 VLC[779:48834] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:46:23.714 VLC[779:48834] Can't find app with identifier com.spotify.client
+2020-03-18 22:46:24.043 VLC[779:48834] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:46:24.043 VLC[779:48834] Can't find app with identifier com.spotify.client
+[00007f90e7bc74a0] videotoolbox decoder: Raising max DPB to 3
+[00007fc39ceacb20] videotoolbox decoder: Using Video Toolbox to decode 'h264'
+[00007fc39ceacb20] videotoolbox decoder: vt cvpx chroma: 420v
+2020-03-18 22:47:26.689 VLC[778:48401] Can't find app with identifier com.apple.iTunes
+2020-03-18 22:47:26.690 VLC[778:48401] Can't find app with identifier com.spotify.client
+[00007fc39ceacb20] videotoolbox decoder: Raising max DPB to 3
