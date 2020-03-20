@@ -2,3 +2,6 @@
 
 killall "VLC"
 nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/short.m3u" &>/dev/null &
+
+echo "New playlist made: " >>/tmp/restartstream.log
+date >> /tmp/restartstream.log
