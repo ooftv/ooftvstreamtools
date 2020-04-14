@@ -1,0 +1,4 @@
+#!/bin/sh
+echo this script expects a text file with just video urls
+echo example: ytmp4 "/tmp/videos.txt"
+/usr/local/bin/youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --batch-file='$1'
