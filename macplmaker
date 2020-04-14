@@ -103,6 +103,7 @@ echo $promo
 #touch $listPath/$shufList
 
 #https://stackoverflow.com/questions/57466814/inserting-random-strings-with-awk-array-or-for-loop/57469986#57469986
+# warning if the promos folder is empty, this will not run or generate a today.m3u or shuffled playlist version
 /usr/local/bin/gshuf $listPath/$listName | awk 'BEGIN {srand(); r = 5; p = 1}
 NR == FNR {promos[p++] = $0; next}
 {print}
