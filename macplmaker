@@ -15,7 +15,7 @@ echo "================PLMaker ran" $d "======================">> $log
 
 echo "Did you remember to set a basePath at the top of the script?" >> $log
 basePath='/Users/ooftv/Movies/ooftv'
-echo "baseURL = " $baseURL
+echo "basePath = " $basePath
 
 mkdir -p $basePath
 
