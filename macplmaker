@@ -11,10 +11,13 @@ export DISPLAY=:0.0
 d=$(date +%Y-%m-%d) # use this to give playlists a unique name
 log=/tmp/PLMaker.log
 echo "================PLMaker ran" $d "======================">> $log
-#set base url, otherwise script will fail. after changing the baseurl disable to log 
+#set base url, otherwise script will fail. after changing the baseurl disable to log
 
+userName=$(whoami)
+echo userName = $userName
 echo "Did you remember to set a basePath at the top of the script?" >> $log
-basePath='/Users/ooftv/Movies/ooftv'
+echo basePath should be /Users/"$userName"/Movies/ooftv
+basePath=/Users/"$userName"/Movies/ooftv
 echo "basePath = " $basePath
 
 mkdir -p $basePath
@@ -30,6 +33,13 @@ othervideos=$basePath'/othervideos'
 promos=$basePath'/promos'
 # OOF Series
 series=$basePath'/series'
+
+#make the folders if they don't exist so we know where to put videos on a new install
+mkdir -p $musicvideos
+mkdir -p $livevideos
+mkdir -p $othervideos
+mkdir -p $promos
+mkdir -p $series
 
 # Playlist Path
 #listPath='/tmp/ooftv'
@@ -51,6 +61,7 @@ shufList=$d-playlist-shuf.m3u # name the shuffled playlist
 echo "Let's call the playlist" $listName
 echo "Let's call the shuffled playlist" $shufList
 echo "Creating playlists..."
+
 # Compile everything into a playlist
 # the -d prints the entire path instead of just the contents which is needed for this to work as a playlist
 # ls -d "$MPC"/*.mp4 >> $listPath/$listName # don't include music video playlist as its not vetted for rights
@@ -62,8 +73,8 @@ echo "Creating playlists..."
 # feature to add. Loop each statement, maybe like this. if n <= r, write the folder contents again.
 # r would equal rank, so a 1 would only get written into the shuffle once, and a 10 would mean every song would be entered the suffle 10 times
 
-# example of repeating a command: 
-# run command 10 times 
+# example of repeating a command:
+# run command 10 times
 # for i in {1..10}; do commandNameHere; done
 
 echo "writing folder contents to " $listPath/$listName >> $log
@@ -89,14 +100,22 @@ echo $promo
 #/usr/bin/shuf $listPath/$listName | awk -v n=$n '1; NR % n == 0 { print "'$promo'" }' | tee $listPath/$shufList.test $listPath/test.m3u > /dev/null
 #at $listPath/test.m3u
 
+#touch $listPath/$shufList
+
 #https://stackoverflow.com/questions/57466814/inserting-random-strings-with-awk-array-or-for-loop/57469986#57469986
-/usr/local/bin/gshuf $listPath/$listName | awk 'BEGIN {srand(); r = 5; p = 1} 
-NR == FNR {promos[p++] = $0; next} 
-{print} 
+/usr/local/bin/gshuf $listPath/$listName | awk 'BEGIN {srand(); r = 5; p = 1}
+NR == FNR {promos[p++] = $0; next}
+{print}
 ++c == r {
-print promos[int(rand() * p)]; 
+print promos[int(rand() * p)];
 r = int(rand()*5+2); c = 0
-}' <(find $basePath'/promos' -type f \( -iname \*.mp4 -o -iname \*.mov \)) - | tee $listPath/$shuflist $listPath/today.m3u > /dev/null
+}' <(find $basePath'/promos' -type f \( -iname \*.mp4 -o -iname \*.mov \)) - | tee $listPath/$shufList $listPath/today.m3u > /dev/null
 
 cat $listPath/today.m3u
 
+# echo debugging
+# echo shufList = $shufList
+# echo listPath/listName = $listPath/$listName
+# echo listPath/shufList = $listPath/$shuflist
+# echo $listpath/today.m3u = $listPath/today.m3u
+# echo try tee $listPath/$shuflist $listPath/today.m3u
