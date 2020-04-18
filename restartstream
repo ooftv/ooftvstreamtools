@@ -3,7 +3,8 @@
 # probably better to run the command as a launchdaemon, have it automatically respawn
 
 #sleep 120s
-killall "VLC"
+killall -9 "VLC"
+sleep 120s
 whoami 
 echo "Stream Restarted: "
 date
