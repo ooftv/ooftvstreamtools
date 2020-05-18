@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mplayer https://github.com/ooftv/ooftvstreamtools.git
