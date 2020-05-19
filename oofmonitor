@@ -1,5 +1,4 @@
 #!/bin/bash
 
-nohup mplayer udp://@238.0.0.1:1237 &
-
-
+nohup cvlc -q udp://@238.0.0.1:1237 &
+#vlc udp://@238.0.0.1:1237
