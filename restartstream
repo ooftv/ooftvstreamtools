@@ -4,7 +4,8 @@
 
 #sleep 120s
 killall -9 "VLC"
-sleep 120s
+echo sleeping for 20 seconds to verify applicaiton exit
+sleep 20s
 whoami 
 echo "Stream Restarted: "
 date
