@@ -2,12 +2,14 @@
 
 # probably better to run the command as a launchdaemon, have it automatically respawn
 
+log = /tmp/restartstream.out
+
 #sleep 120s
 killall -9 "VLC"
 echo sleeping for 10 seconds to verify application exit
 sleep 10s
-whoami 
-echo "Stream Restarted: "
-date
+whoami > $log
+echo "Stream Restarted: " > $log
+date > $log
 caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
 nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
