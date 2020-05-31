@@ -4,9 +4,10 @@
 
 #sleep 120s
 killall -9 "VLC"
-echo sleeping for 20 seconds to verify applicaiton exit
-sleep 20s
+echo sleeping for 10 seconds to verify application exit
+sleep 10s
 whoami 
 echo "Stream Restarted: "
 date
-"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
+caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
+nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
