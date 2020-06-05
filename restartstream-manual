@@ -15,6 +15,6 @@ echo "Stream Restarted: " >> $log
 date >> $log
 caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
 
-#nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
+nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
 
-"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
+#"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
