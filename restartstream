@@ -23,4 +23,10 @@ nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/oof
 
 
 # This creates jerky playback, but works from a LaunchAgent
+# this is due to the fact that processes launched from launchd don't get full resources:
+# https://apple.stackexchange.com/questions/322557/why-is-an-application-running-so-slowly-when-started-with-launchctl
+# the solution is to add this to the plist:
+#<key>ProcessType</key>
+#<string>Interactive></string>
+
 #"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
