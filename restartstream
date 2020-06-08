@@ -7,14 +7,20 @@ touch $log
 
 #sleep 120s
 killall -9 "VLC"
-echo sleeping for 10 seconds to verify application exit
-sleep 10s
+echo sleeping for 5 seconds to verify application exit
+sleep 5s
 echo ========================== >> $log
 whoami >> $log
 echo "Stream Restarted: " >> $log
 date >> $log
-caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
+#caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
 
+# When this is run from a launchagent, playback doesn't work
 #nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
+#nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" &
 
-"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
+nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
+
+
+# This creates jerky playback, but works from a LaunchAgent
+#"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
