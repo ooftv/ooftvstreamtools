@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# this temporarily switches the screen resolution and back for when it comes up distorted.
+# this requires screenresolution. install with
+# brew install screenresolution
+# https://github.com/jhford/screenresolution
+
+screenresolution set skip 1280x720x32@60 
+screenresolution set skip 1920x1280x32@60 
