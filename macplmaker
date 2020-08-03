@@ -9,7 +9,7 @@ export DISPLAY=:0.0
 # 4) Makes sure certain videos play every so many videos # for example it will play something from the promo folder every 10 videos
 
 d=$(date +%Y-%m-%d) # use this to give playlists a unique name
-log=/tmp/PLMaker.log
+log=/tmp/macplmaker.log
 echo "================PLMaker ran" $d "======================">> $log
 #set base url, otherwise script will fail. after changing the baseurl disable to log
 
