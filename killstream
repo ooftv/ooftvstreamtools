@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# probably better to run the command as a launchdaemon, have it automatically respawn
+
+log=/tmp/killstream.log
+touch $log
+
+
+#sleep 120s
+killall -9 "VLC"
+#echo sleeping for 5 seconds to verify application exit
+#sleep 5s
+echo ========================== >> $log
+whoami >> $log
+echo "Stream Killed: " >> $log
+date >> $log

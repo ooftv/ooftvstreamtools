@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# probably better to run the command as a launchdaemon, have it automatically respawn
+
+log=/tmp/streamloader.log
+touch $log
+
+
+#sleep 120s
+
+#moved this to a new script, killstream. killstream should run seconds before restartstream
+killall -9 "VLC"
+#echo sleeping for 5 seconds to verify application exit
+#sleep 5s
+echo ========================== >> $log
+whoami >> $log
+echo "Stream Loaded: " >> $log
+date >> $log
+#caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
+
+# When this is run from a launchagent, playback doesn't work
+#nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
+#nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" &
+
+#nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
+
+
+# This creates jerky playback, but works from a LaunchAgent
+# this is due to the fact that processes launched from launchd don't get full resources:
+# https://apple.stackexchange.com/questions/322557/why-is-an-application-running-so-slowly-when-started-with-launchctl
+# the solution is to add this to the plist:
+#<key>ProcessType</key>
+#<string>Interactive></string>
+
+# enable this to get it back
+/Applications/VLC.app/Contents/MacOS/VLC --fullscreen --loop /Users/ooftv/Movies/ooftv/playlists/today.m3u
