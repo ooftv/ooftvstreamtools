@@ -1,0 +1,8 @@
+#!/bin/bash
+d=$(date)
+IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
+echo "$d ip is $IP" >> /tmp/thistletemp.txt
+echo "$d ip is $IP" >> /tmp/thistle.log
+
+cat /tmp/thistletemp.txt | ssh lorenrisker@ooftv.duckdns.org 'cat >> thistlenetwork.txt'

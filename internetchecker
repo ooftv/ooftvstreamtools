@@ -1,0 +1,6 @@
+#!/bin/bash
+log=/Users/Shared/internetchecker.log
+
+echo "================================================================"
+date 
+ping -c5 -W1 google.com && echo 'internet works' || echo 'error: no internet'
