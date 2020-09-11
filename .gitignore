@@ -26,7 +26,7 @@
 *.sql
 *.sqlite
 *.mbtree
-
+nohup.out
 # OS generated files #
 ######################
 .DS_Store
