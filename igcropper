@@ -2,16 +2,41 @@
 
 # This takes an instagram video as an input cuts it in half, and outputs 2 videos
 
+# This script requires an input, so let's check if there is one
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied"
+fi
+
+
+
 #ffmpeg -i in.mp4 -filter:v "crop=80:60:200:100" -c:a copy out.mp4
 # in this example, the output video will be 80x60, and the top left corner starts at 200x100
 
-# instagram videos are 1080x1920
-# to divide it in 2, you need to videos that are 540x960
+# First, get the video resolution
+#echo "input resolution is"
+fullres=$(ffprobe -v error -show_entries stream=width,height -of csv=p=0:s=x $1)
+#echo $fullres
+
+#echo "video width is"
+wr=$(ffprobe -v error -show_entries stream=width -of csv=p=0:s=x $1)
+#echo $wr
+
+#echo "video height is"
+hr=$(ffprobe -v error -show_entries stream=height -of csv=p=0:s=x $1)
+#echo $hr
+
+# instagram videos are 9x16.
+# to divide it in 2, you need two videos that are w/2 x h/2 (width divided by 2 and height dived by 2)
 # video 1 would start at 0,0
-# video 2 would start at 0,961
+# video 2 would start at 0,h/2
+
+# divide the height resolution in 2 to find the size of our output video, and crop point (width remains the same as source)
+let h=$hr/2
+
 
 #top video
-ffmpeg -i $1 -filter:v "crop=540:960:0:0" -c:a copy top.mp4
+ffmpeg -i $1 -filter:v "crop=$wr:$h:0:0" -c:a copy top-"${1%.mp4}".mp4
 
 # bottom video
-ffmpeg -i $1 -filter:v "crop=540:960:0:961" -c:a copy bottom.mp4
+ffmpeg -i $1 -filter:v "crop=$wr:$h:0:$h" -c:a copy bottom-"${1%.mp4}".mp4
