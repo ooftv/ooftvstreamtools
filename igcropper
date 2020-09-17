@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This takes an instagram video as an input cuts it in half, and outputs 2 videos
+
+#ffmpeg -i in.mp4 -filter:v "crop=80:60:200:100" -c:a copy out.mp4
+# in this example, the output video will be 80x60, and the top left corner starts at 200x100
+
+# instagram videos are 1080x1920
+# to divide it in 2, you need to videos that are 540x960
+# video 1 would start at 0,0
+# video 2 would start at 0,961
+
+#top video
+ffmpeg -i $1 -filter:v "crop=540:960:0:0" -c:a copy top.mp4
+
+# bottom video
+ffmpeg -i $1 -filter:v "crop=540:960:0:961" -c:a copy bottom.mp4
