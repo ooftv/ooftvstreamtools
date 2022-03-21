@@ -2,11 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GroupName</key>
+	<string>staff</string>
+	<key>InitGroups</key>
+	<true/>
 	<key>Label</key>
-	<string>tv.outoffocus.restartstream</string>
+	<string>tv.outoffocus.plmaker</string>
 	<key>Program</key>
 	<string>/usr/local/bin/ooftv/mac/macplmaker</string>
 	<key>RunAtLoad</key>
 	<true/>
+	<key>StandardErrorPath</key>
+	<string>/tmp/tv.outoffocus.restartstream.stderr</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/tv.outoffocus.restartstream.stdout</string>
+	<key>StartCalendarInterval</key>
+	<array>
+		<dict>
+			<key>Hour</key>
+			<integer>4</integer>
+			<key>Minute</key>
+			<integer>7</integer>
+		</dict>
+	</array>
+	<key>UserName</key>
+	<string>ooftv</string>
 </dict>
 </plist>
