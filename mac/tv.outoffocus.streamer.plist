@@ -8,8 +8,13 @@
 	<true/>
 	<key>Label</key>
 	<string>tv.outoffocus.restartstream</string>
-	<key>Program</key>
-	<string>/usr/local/bin/ooftv/mac/restartstream</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Applications/VLC.app/Contents/MacOS/VLC</string>
+		<string>--fullscreen</string>
+		<string>--loop</string>
+		<string>/Users/ooftv/Movies/ooftv/playlists/today.m3u</string>
+	</array>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>StandardErrorPath</key>

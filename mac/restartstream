@@ -1,5 +1,21 @@
 #!/bin/bash
 
-launchctl unload -w /Users/ooftv/Library/LaunchAgents/tv.outoffocus.streamloader.plist
-sleep 5s
-launchctl load -w /Users/ooftv/Library/LaunchAgents/tv.outoffocus.streamloader.plist
+# probably better to run the command as a launchdaemon, have it automatically respawn
+
+log=/tmp/restartstream.log
+touch $log
+
+#sleep 120s
+killall -9 "VLC"
+#echo sleeping for 10 seconds to verify application exit
+#sleep 10s ;
+echo ========================== >> $log
+whoami >> $log
+echo "Stream Restarted: " >> $log
+date >> $log
+echo "new message" >> $log
+#caffeinate -u -t 5 # not sure if neccesary, just try to wake the computer up
+
+nohup "/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u" >/dev/null 2>&1 &
+
+#"/Applications/VLC.app/Contents/MacOS/VLC" --fullscreen --loop "/Users/ooftv/Movies/ooftv/playlists/today.m3u"
