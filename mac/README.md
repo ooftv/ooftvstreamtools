@@ -15,3 +15,5 @@ sudo chown root /usr/local/bin/ooftv/mac/tv.outoffocus.streamer.plist
 sudo ln -s /usr/local/bin/ooftv/mac/tv.outoffocus.streamer.plist /Library/LaunchDaemons/
 
 check /tmp for logs and errors
+
+be sure to turn on automatic login, and do not have the lockscreen come on. Beacuse of this, don't use keychain to store passwords
