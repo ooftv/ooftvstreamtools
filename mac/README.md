@@ -1,6 +1,9 @@
 isntall homebrew with:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+install vlc with 
+brew install vlc
+
 plmaker requires gshuf. install with
 brew install coreutils
 
